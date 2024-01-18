@@ -1,0 +1,15 @@
+body{
+     background-color: black;
+}
+
+#container button{
+     height: 20px;
+     width: 70px;
+     color: aqua;
+     background-color: blueviolet;
+     margin: 10px;
+}
+
+#result {
+     color: aliceblue;
+}
