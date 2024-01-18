@@ -1,29 +1,10 @@
-// Step 1 of challenge
-// create git repo  ->  Done
 
-// Step 2 of challenge
-// create blank html and js file   ->  Done
-
-// Step 3 of challenge
-
-// create function called getComputerChoice
 function getComputerChoice() {
-
-     // randomly return among "Rock" , "Paper", "scissor"
      let choice = ["rock", "paper", "scissor"];
      let random = Math.floor(Math.random() * choice.length);
      let computerSelection = choice[random];
      return computerSelection;
 }
-
-// Step 3 -> Done
-
-// Step 4 of Challenge
-
-// write a function which plays a single round of game called playRound
-// function should take two parameters playersSelection and computerSelection
-// returns a string which declare the winner like "You Lose! Paper beats Rock" or win 
-// remember the input will be case insensitive 
 
 function play(playersSelection, computerSelection) {
      let computer = computerSelection.toLowerCase();
@@ -58,66 +39,108 @@ function play(playersSelection, computerSelection) {
      return message;
 }
 
-// This game would be 5 round
-// Ties will be done replaying the round
 
-// Step 4 ->  Done (partially)
+const container = document.querySelector("#container");
+container.style.color = "white"
+
+let btn1 = document.createElement("button");
+btn1.id = "btnId1";
+btn1.textContent = "Rock";
+let btn2 = document.createElement("button");
+btn2.id = "btnId2";
+btn2.textContent = "Paper";
+let btn3 = document.createElement("button");
+btn3.id = "btnId3";
+btn3.textContent = "Scissor";
+
+container.appendChild(btn1);
+container.appendChild(btn2);
+container.appendChild(btn3);
+
+let buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+     button.addEventListener("click", () => {
+          const playersSelection = button.textContent;
+          const computerSelection = getComputerChoice();
+          const result = play(playersSelection, computerSelection);
+          resultString.textContent = result;
+          scoreAdd();
+     });
+});
+
+const resultString = document.createElement("div");
+resultString.id = "result";
+container.appendChild(resultString);
 
 
-// Step 5 of challenge
+const runningScore = document.createElement("div");
+runningScore.id = "score";
+container.appendChild(runningScore);
 
-// check that play function working properly instead of console.log(message) you have to put return message;
+let playerScore = 0;
+let computerScore = 0;
 
-// step 5 ->  Done
+const playerCount = document.createElement("p");
+playerCount.innerHTML = "Player Score: "+ playerScore;
+runningScore.appendChild(playerCount);
 
-// Step 6 of challenge\
+const computerCount = document.createElement("p");
+computerCount.innerHTML = "Computer Score: "+ computerScore;
+runningScore.appendChild(computerCount);
 
-// write a new function called game() 
-// use previous function to play best of 5
-// Keep score and report winner or looser at the end 
+const resetButton = document.createElement("button");
+const resultShow = document.createElement("p");
+const resultScore = document.createElement("p");
+resetButton.id = "resetButton";
+resetButton.innerHTML = "Reply";
+resultShow.id = "resultShow";
+resultScore.id = "resultScore";
 
-function game() {
-     let play5 = 5;
-     let playerScore = 0;
-     let computerScore = 0;
-     
-     for (let index = 0; index < play5; index++) {
-          let playerChoice = prompt("Choose your choice among Rock, Paper, and Scissor");
-          playerChoice = playerChoice.toLowerCase();
-          const validChoices = ["rock", "paper", "scissor"];
-          // validating the input is correct or not
-          if (!validChoices.includes(playerChoice)) {
-               let message = "Give correct input from among all the listed choice";
-               // console.log(message);
-               return message;
-          }
+resetButton.addEventListener("click", ()=>{
+     reset();
+})
 
-          let computerChoice = getComputerChoice();
 
-          let result = play(playerChoice, computerChoice);   
-          console.log(result);
-
-          // Adding scores after winning 
-          if (result.includes("Won")) {
-               playerScore++;
-          } else if (result.includes("Lose")) {
-               computerScore++;
-          } else if (result.includes("Tie")) {
-               // if tie happens the rematch happens
-               index--;
-          }
+function scoreAdd() {
+     if (resultString.textContent.includes("Won")) {
+          playerScore++;
+     } else if (resultString.textContent.includes("Lose")) {
+          computerScore++;
      }
 
-     // message after winning someone in best of 5
-     if (playerScore < computerScore) {
-          let message = "Computer wins"
+     if (computerScore >= 5) {
+          resultShow.innerHTML = " Computer wins " ;
+          resultScore.innerHTML = " Players Score: " + playerScore + " Computer score: " + computerScore ;
+          playerScore = 0;
+          computerScore = 0;
+          container.appendChild(resultShow);
+          container.appendChild(resultScore);
+          container.appendChild(resetButton);
+     } else if (playerScore >= 5) {
+          resultShow.innerHTML = " Player Wins " ;
+          resultScore.innerHTML = " Computer score: " + computerScore + " Players Score: " + playerScore ;
+          playerScore = 0;
+          computerScore = 0;
+          container.appendChild(resultShow);
+          container.appendChild(resultScore);
+          container.appendChild(resetButton);
+      }
 
-          return message;
-     } else if (computerScore < playerScore) {
-          let message = "Player wins"
-
-          return message;
-     }
-
+     playerCount.innerHTML = "Player Score: " + playerScore;
+     computerCount.innerHTML = "Computer Score: " + computerScore;
 }
 
+
+function reset(){
+    playerScore = 0;
+    computerScore = 0;
+
+    resultString.textContent = "";
+    resultShow.innerHTML = "";
+    resultScore.innerHTML = "";
+
+    playerCount.innerHTML = "Player Score: 0";
+    computerCount.innerHTML = "Computer Score: 0";
+
+//     resetButton.style.display = "none";
+}

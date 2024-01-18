@@ -1,0 +1,20 @@
+body{
+     background-color: black;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+#container button{
+     height: 20px;
+     width: 70px;
+     color: aqua;
+     background-color: blueviolet;
+     margin: 10px;
+}
+
+#result, #score, #resultShow, #resultScore, #resetButton {
+     display: grid;
+     justify-content: center;
+     align-items: center;
+}
