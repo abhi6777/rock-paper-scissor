@@ -64,6 +64,7 @@ buttons.forEach((button) => {
           const computerSelection = getComputerChoice();
           const result = play(playersSelection, computerSelection);
           resultString.textContent = result;
+          scoreAdd();
      });
 });
 
@@ -87,25 +88,37 @@ const computerCount = document.createElement("p");
 computerCount.innerHTML = "Computer Score: "+ computerScore;
 runningScore.appendChild(computerCount);
 
+const resultShow = document.createElement("p");
+const resultScore = document.createElement("p");
+resultShow.id = "resultShow";
+resultScore = "resultScore";
 
-// function scoreAdd() {
-//      if (finalResult.includes("Won")) {
-//           playerScore++;
-//      } else if (finalResult.includes("Lose")) {
-//           computerScore++;
-//      }
 
-//      if (computerScore >= 5) {
-//           let result = "Computer wins"
-//      } else if(playerScore >= 5){
-//           let result = "Player Wins";
-//      } else {
-//           let result = "tie";
-//      }
+function scoreAdd() {
+     if (resultString.textContent.includes("Won")) {
+          playerScore++;
+     } else if (resultString.textContent.includes("Lose")) {
+          computerScore++;
+     }
 
-//      const resultShow = document.createElement("p");
-//      resultShow.innerHTML = result;
-//      resultShow.appendChild(playerCount);
-// }
+     if (computerScore >= 5) {
+          resultShow.innerHTML = " Computer wins " ;
+          resultScore.innerHTML = " Players Score: " + playerScore + " Computer score: " + computerScore ;
+          playerScore = 0;
+          computerScore = 0;
+          container.appendChild(resultShow);
+          container.appendChild(resultScore);
+      } else if (playerScore >= 5) {
+          resultShow.innerHTML = " Player Wins " ;
+          resultScore.innerHTML = " Computer score: " + computerScore + " Players Score: " + playerScore ;
+          playerScore = 0;
+          computerScore = 0;
+          container.appendChild(resultShow);
+          container.appendChild(resultScore);
+      }
+
+     playerCount.innerHTML = "Player Score: " + playerScore;
+     computerCount.innerHTML = "Computer Score: " + computerScore;
+}
 
 
