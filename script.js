@@ -88,10 +88,17 @@ const computerCount = document.createElement("p");
 computerCount.innerHTML = "Computer Score: "+ computerScore;
 runningScore.appendChild(computerCount);
 
+const resetButton = document.createElement("button");
 const resultShow = document.createElement("p");
 const resultScore = document.createElement("p");
+resetButton.id = "resetButton";
+resetButton.innerHTML = "Reply";
 resultShow.id = "resultShow";
-resultScore = "resultScore";
+resultScore.id = "resultScore";
+
+resetButton.addEventListener("click", ()=>{
+     reset();
+})
 
 
 function scoreAdd() {
@@ -108,13 +115,15 @@ function scoreAdd() {
           computerScore = 0;
           container.appendChild(resultShow);
           container.appendChild(resultScore);
-      } else if (playerScore >= 5) {
+          container.appendChild(resetButton);
+     } else if (playerScore >= 5) {
           resultShow.innerHTML = " Player Wins " ;
           resultScore.innerHTML = " Computer score: " + computerScore + " Players Score: " + playerScore ;
           playerScore = 0;
           computerScore = 0;
           container.appendChild(resultShow);
           container.appendChild(resultScore);
+          container.appendChild(resetButton);
       }
 
      playerCount.innerHTML = "Player Score: " + playerScore;
@@ -122,3 +131,16 @@ function scoreAdd() {
 }
 
 
+function reset(){
+    playerScore = 0;
+    computerScore = 0;
+
+    resultString.textContent = "";
+    resultShow.innerHTML = "";
+    resultScore.innerHTML = "";
+
+    playerCount.innerHTML = "Player Score: 0";
+    computerCount.innerHTML = "Computer Score: 0";
+
+//     resetButton.style.display = "none";
+}

@@ -1,5 +1,8 @@
 body{
      background-color: black;
+     display: flex;
+     justify-content: center;
+     align-items: center;
 }
 
 #container button{
@@ -10,6 +13,8 @@ body{
      margin: 10px;
 }
 
-#result {
-     color: aliceblue;
+#result, #score, #resultShow, #resultScore, #resetButton {
+     display: grid;
+     justify-content: center;
+     align-items: center;
 }
